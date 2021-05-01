@@ -1,0 +1,319 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Digital Filter Design</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_01.html"><strong aria-hidden="true">1.</strong> Introduction to Signals</a></li><li class="chapter-item expanded "><a href="chapter_02.html"><strong aria-hidden="true">2.</strong> Quantization and Sampling Theorem</a></li><li class="chapter-item expanded "><a href="chapter_03.html"><strong aria-hidden="true">3.</strong> Linear Systems and Superposition</a></li><li class="chapter-item expanded "><a href="chapter_04.html"><strong aria-hidden="true">4.</strong> Convolution</a></li><li class="chapter-item expanded "><a href="chapter_05.html"><strong aria-hidden="true">5.</strong> Discrete Fourier Transform</a></li><li class="chapter-item expanded "><a href="chapter_06.html"><strong aria-hidden="true">6.</strong> Complex Numbers</a></li><li class="chapter-item expanded "><a href="chapter_07.html"><strong aria-hidden="true">7.</strong> Complex Fourier Transform</a></li><li class="chapter-item expanded "><a href="chapter_08.html"><strong aria-hidden="true">8.</strong> Fast Fourier Transform</a></li><li class="chapter-item expanded "><a href="chapter_09.html" class="active"><strong aria-hidden="true">9.</strong> Digital Filter Design</a></li><li class="chapter-item expanded "><a href="chapter_10.html"><strong aria-hidden="true">10.</strong> FIR Filters</a></li><li class="chapter-item expanded "><a href="chapter_11.html"><strong aria-hidden="true">11.</strong> IIR Filters</a></li><li class="chapter-item expanded "><a href="chapter_12.html"><strong aria-hidden="true">12.</strong> Windowed Filters</a></li><li class="chapter-item expanded "><a href="chapter_13.html"><strong aria-hidden="true">13.</strong> Custom Filters</a></li><li class="chapter-item expanded "><a href="chapter_14.html"><strong aria-hidden="true">14.</strong> Match Filters</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">15.</strong> FFT Convolution</a></li><li class="chapter-item expanded "><a href="chapter_16.html"><strong aria-hidden="true">16.</strong> LTI Systems</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">17.</strong> Interpolation</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">18.</strong> Waveform Generation</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#chapter-9" id="chapter-9">Chapter 9</a></h1>
+<h1><a class="header" href="#digital-filter-design" id="digital-filter-design">Digital Filter Design</a></h1>
+<hr>
+<hr>
+<h2><a class="header" href="#digital-filters" id="digital-filters">Digital Filters</a></h2>
+<p>Design digital filters digital filters are a very important partof DSP.In fact the extraordinary performance is one of the key reasons that DSP has become so popular.Digital filter is a system that performs mathematical operations on a sampled, discrete-time signal to reduce or enhance certain aspects of that signal. </p>
+<p>A <em>digital filter</em> system usually consists of an Analog-to-digital converter (ADC) to sample the input signal followed by a microprocessor and some peripheral components such as memory to store data and filter coefficients . Program Instructions  running on the microprocessor implement the digital filter by performing the necessary mathematical operations on the numbers received from the ADC. </p>
+<img src="\img1\filtertype.jpg" width="500">
+<p>Digital filters are used for : </p>
+<ul>
+<li>Signal separation </li>
+<li>Signal restoration </li>
+</ul>
+<p><strong>Signal separation</strong> is needed whena signal has been contaminated with interference noise or other signals.For example imagine a device for measuring the electrical activity of the baby's heart something (ECG)  while the baby is still in the womb.Rossignol will likely be corrupted by breathing and heartbeat of the mother.This Digital Filter be used to separate these signals so that they can individually be analyzed </p>
+<p><strong>Signal restoration</strong> is used when a signal has been distorted in some way.Sample an older recording made with poor equipment.Maybe silted to better represents the sound.These problems can be solved with both analog and digital filters .Well no such force and having large dynamic range both in amplitude of frequencies in this section weshall go deeper into that merits for both theater types.In DSP It is very common to see field test input and output signals.In the time domain.This is because signals are usually created by something that regular intervals of time.But this is not the only way something can take place.The second most common way of something is not equal intervals in space.For example imagine taking simultaneous readings from an array of strange sensors mounted at one centimeterincrements along the length of an aircraft wing.Many other domains are possible over time and space.By far the most common way you see the term time domain and dispute.Remember that in me actually referred to some polls taken over time.Or maybe a general reference to any domain that these samples are taken in every lead.If he has an impulse response Estep response and a frequency response.Each of these responses contains complete information about the filter but in different form.If one of the three is specified the other two are fakes and can be directly calculated.All three of these representations.Important because they describe how they feel to work out under different circumstances.The step response can be found by discrete integration of the impulse response the frequency responsecan be found from the impulse response by using the Fast Fourier Transform and can be displayed eitheron a linear scale or in decibels.</p>
+<p><strong>Applications</strong></p>
+<p>Filters are used to condition a time domain signal by attenuating unwanted frequency content. </p>
+<ol>
+<li>
+<p>Anti-Aliasing Filter – An anti-aliasing filter is used to remove signal content that cannot be properly digitized before Analog-to-Digital conversion.</p>
+</li>
+<li>
+<p>Noise Removal – Filters could be used to remove unwanted high frequency noise from a signal, for example, a hiss in a musical recording.</p>
+</li>
+<li>
+<p>Drift Removal – Drift or large offsets can be removed from a signal via a high pass filter or AC coupling.</p>
+</li>
+</ol>
+<hr />
+<h3><a class="header" href="#filter-kernel" id="filter-kernel">Filter kernel</a></h3>
+<p>The most straightforward way to implement a digital filter is by convolving the input signal with the digital filter's impulse response. All possible linear filters can be made in this manner. When the impulse response is used in this way it is given a special name: called filter kernel.Kernel filters provide low- and high-pass filtering (smoothing and sharpening, respectively) using a kernel .We can adjust the size of the kernel using the Kernel Size control. The Average filter is simply a  low-pass filter which takes the average of the surrounding signal values.</p>
+<hr />
+<h3><a class="header" href="#time-domain-parameters" id="time-domain-parameters">Time Domain Parameters</a></h3>
+<img src="\img1\Filter1.jpg" width="500">
+<p>Step response is very crucial in  time domain filters. Impulse response isn't the important parameter in time domain  analysis of the signal . The answer lies in the way that the human mind understands and processes information. Step, impulse and frequency responses all contain identical information, But in differet formats. The step response is useful in time domain analysis because it matches the way humans view the information contained in the signals.</p>
+<img src="\img1\tdre.jpg" width="500">
+<p>If you are given a signal of some unknown origin and asked to analyze it. we will divide the signal into regions of similar characteristics . Some of the regions may be smooth while others may have large amplitude peaks few  others may be noisy. This segmentation is accomplished by identifying the points that separate the regions. This is where the step function comes in. The step function is the purest way of representing a division between two dissimilar regions. It can mark when an event starts or when an event ends. It tells you that whatever is on the left is somehow different from whatever is on the right. This is how the human mind views time domain information. The step response is important in filtering because it describes how the dividing lines are being modified by the filter.</p>
+<hr />
+<h3><a class="header" href="#frequency-domain-parameters" id="frequency-domain-parameters">Frequency Domain Parameters</a></h3>
+<p>The Fundamental purpose of filters is to allow some frequencies to pass unaltered, while completely blocking other frequencies. The passband refers to those frequencies that are passed, while the stopband contains those frequencies that are blocked. The transition band is between. </p>
+<ul>
+<li>A fast roll-off means that the transition band is very narrow. </li>
+<li>The division between the passband and transition band is called the cutoff frequency. </li>
+</ul>
+<p>Let us now see  three parameters that measure how well a filter performs in the frequency domain </p>
+<ul>
+<li>separate closely spaced frequencies properly the filter must have a fast roll-off. </li>
+<li>For the passband frequencies to move through the filter unaltered, there must be no passband ripple Lastly</li>
+<li>to adequately block the stopband frequencies, it shoud have  stopband attenuation as shown in Figure</li>
+</ul>
+<p>High-pass, band-pass and band-reject filters are designed by starting with a low-pass filter and then converting it into the desired response with suitable operations .There are two methods for the low-pass to high-pass conversion:</p>
+<ul>
+<li>Spectral inversion </li>
+<li>Spectral reversal.</li>
+</ul>
+<img src="\img1\spectral1.jpg" width="500">
+<p><strong>Spectran Inversion</strong> </p>
+<p>Frequency response  found by adding  zeros to the filter kernel ( zero padding)  and taking a 64 point FFT. Two things must be done to change the low-pass filter kernel into a high-pass filter kernel. First, change the sign of each sample in the filter kernel. Second, add one to the sample at the center of symmetry. This results in the high-pass filter kernel shown in , with the frequency response shown . Spectral inversion flips the frequency response top-for-bottom, changing the passbands into stopbands, and the stopbands into passbands. 
+It changes a filter from </p>
+<ul>
+<li>low-pass to high-pass.</li>
+<li>high-pass to low-pass.</li>
+<li>Band-pass to band-reject.</li>
+<li>Band-reject to band-pass.</li>
+</ul>
+<img src="\img1\spectral2.jpg" width="500">
+<p>This two step modification to the time domain results in an inverted frequency spectrum as shown . The input signal x[n] is applied to two systems in parallel. One of these systems is a low-pass filter with an impulse response given by h[n]. The other system does nothing to the signal(ALL PASS)  and therefore has an impulse response that is a delta function  δ[n]. The overall output, y[n], is equal to the output of the all-pass system minus the output of the low-pass system. Since the low frequency components are subtracted from the original signal, only the high frequency components appear in the output. Thus, a high-pass filter is formed.In programming this can be done as running the signal through a low-pass filter and then subtracting the filtered signal from the original. However, the entire operation can be performed in a signal stage by combining the two filter kernels. </p>
+<p><strong>Spectran Reversal</strong></p>
+<img src="\img1\spectral3.jpg" width="500">
+<p>low-pass and high-pass filter kernels can be combined to form </p>
+<ul>
+<li>Band-pass </li>
+<li>Band-reject filters. </li>
+</ul>
+<p>In short, adding the filter kernels produces a band-reject filter, while convolving the filter kernels produces a band-pass filter. These are based on the way cascaded and parallel systems are be combined. Multiple combination of these techniques can also be used.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="chapter_08.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="chapter_10.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="chapter_08.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="chapter_10.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3000/__livereload");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

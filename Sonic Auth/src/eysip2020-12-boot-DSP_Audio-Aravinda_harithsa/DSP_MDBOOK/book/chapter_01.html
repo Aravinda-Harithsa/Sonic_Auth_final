@@ -1,0 +1,322 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Introduction to Signals</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_01.html" class="active"><strong aria-hidden="true">1.</strong> Introduction to Signals</a></li><li class="chapter-item expanded "><a href="chapter_02.html"><strong aria-hidden="true">2.</strong> Quantization and Sampling Theorem</a></li><li class="chapter-item expanded "><a href="chapter_03.html"><strong aria-hidden="true">3.</strong> Linear Systems and Superposition</a></li><li class="chapter-item expanded "><a href="chapter_04.html"><strong aria-hidden="true">4.</strong> Convolution</a></li><li class="chapter-item expanded "><a href="chapter_05.html"><strong aria-hidden="true">5.</strong> Discrete Fourier Transform</a></li><li class="chapter-item expanded "><a href="chapter_06.html"><strong aria-hidden="true">6.</strong> Complex Numbers</a></li><li class="chapter-item expanded "><a href="chapter_07.html"><strong aria-hidden="true">7.</strong> Complex Fourier Transform</a></li><li class="chapter-item expanded "><a href="chapter_08.html"><strong aria-hidden="true">8.</strong> Fast Fourier Transform</a></li><li class="chapter-item expanded "><a href="chapter_09.html"><strong aria-hidden="true">9.</strong> Digital Filter Design</a></li><li class="chapter-item expanded "><a href="chapter_10.html"><strong aria-hidden="true">10.</strong> FIR Filters</a></li><li class="chapter-item expanded "><a href="chapter_11.html"><strong aria-hidden="true">11.</strong> IIR Filters</a></li><li class="chapter-item expanded "><a href="chapter_12.html"><strong aria-hidden="true">12.</strong> Windowed Filters</a></li><li class="chapter-item expanded "><a href="chapter_13.html"><strong aria-hidden="true">13.</strong> Custom Filters</a></li><li class="chapter-item expanded "><a href="chapter_14.html"><strong aria-hidden="true">14.</strong> Match Filters</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">15.</strong> FFT Convolution</a></li><li class="chapter-item expanded "><a href="chapter_16.html"><strong aria-hidden="true">16.</strong> LTI Systems</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">17.</strong> Interpolation</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">18.</strong> Waveform Generation</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#chapter-1" id="chapter-1">Chapter 1</a></h1>
+<h1><a class="header" href="#introduction-to-signals" id="introduction-to-signals">Introduction to Signals</a></h1>
+<hr>
+<hr>
+<h4><a class="header" href="#what-is-signal" id="what-is-signal">What is Signal?</a></h4>
+<p>A signal is an electromagnetic or electrical current that is used for carrying data from one system or network to another. The signal is a function that conveys information about a phenomenon. it refers to any time-varying voltage  which carries information. It can also be defined as a physical quantity that varies with time, temperature, pressure or with any independent variables such as speech .</p>
+<h4><a class="header" href="#what-is-signal-processing-" id="what-is-signal-processing-">What is Signal processing ?</a></h4>
+<p>The process of operation in which the characteristics of a signal Amplitude,shape,phase,frequency,etc. undergoes a change is known as signal processing. </p>
+<h4><a class="header" href="#continuous-time-signals" id="continuous-time-signals">Continuous Time Signals</a></h4>
+<p>Continuous-time signals are defined along a continuum of time and are thus, represented by a continuous independent variable. Continuous-time signals are often referred to as analog signals.This type of signal shows continuity both in amplitude and time. These will have values at each instant of time. Sine and cosine functions are the best example of Continuous time signal.</p>
+<h4><a class="header" href="#discrete-time-signals" id="discrete-time-signals">Discrete Time signals</a></h4>
+<p>The signals which are defined or present at discrete intervals of time are known as discrete signals. Therefore, every independent variable has distinct value  . They are represented as sequence of numbers.  speech and video signals have the can be  represented in both continuous and discrete time format under certain circumstances.  but  they are identical. Amplitudes also show discrete characteristics. </p>
+<h5><a class="header" href="#advantages-of-digital-signals" id="advantages-of-digital-signals">Advantages of Digital Signals</a></h5>
+<ul>
+<li>Digital data can be easily compressed.</li>
+<li>Information in the digital form can be encrypted.</li>
+<li>Equipment that uses digital signals is more common and less expensive.</li>
+<li>Digital signal makes running instruments free from observation errors like parallax and approximation errors.</li>
+<li>A lot of editing tools are available</li>
+<li>You can edit the sound without altering the original copy</li>
+<li>Easy to transmit the data over networks </li>
+</ul>
+<h5><a class="header" href="#disadvantage-of-digital-signals" id="disadvantage-of-digital-signals">Disadvantage of Digital Signals</a></h5>
+<ul>
+<li>Sampling may cause loss of information.</li>
+<li>A/D and D/A demands mixed-signal hardware</li>
+<li>Processor speed is limited</li>
+<li>Develop quantization and round-off errors</li>
+<li>It requires greater bandwidth</li>
+<li>Systems and processing is more complex and demand processing power .</li>
+</ul>
+<h3><a class="header" href="#plotting-of-information" id="plotting-of-information">Plotting of Information</a></h3>
+<p>Now we shall start with basic code to plot a given information array using basic python libraries </p>
+<h4><a class="header" href="#python-program-to-plot-the-given-information" id="python-program-to-plot-the-given-information">Python program to plot the given information</a></h4>
+<pre><code class="language-python">from matplotlib import pyplot as plt
+from matplotlib import style
+</code></pre>
+<p>Now let us define the x and y asis parameters</p>
+<pre><code class="language-python">x=[1,2,3,4,5]
+y=[6,7,8,9,10]
+</code></pre>
+<pre><code class="language-python">plt.xlabel('x axis')
+plt.ylabel('y axis')
+plt.plot(x,y,label='line1')
+plt.title(&quot;The signal chart intro&quot;)
+plt.legend()
+</code></pre>
+<pre><code>&lt;matplotlib.legend.Legend at 0x1881ebfbf88&gt;
+</code></pre>
+<img src="\images_01\output_5_1.png" alt="Output 2" width="500"> 
+<h2><a class="header" href="#generation-of-signals" id="generation-of-signals">Generation of signals</a></h2>
+<p>We are using  numpy for generation and matplotlib for effectively plotting the signal and generating a signal of given frequency with utilization of sine function defined by numpy</p>
+<pre><code class="language-python">from scipy import signal
+import numpy as np
+from matplotlib import pyplot as plt
+from matplotlib import style
+
+#Siganl sampling rate 20000Hz
+
+t = np.linspace(0,1.0,2001)
+
+
+# different parameters are fed for generation
+sig_5Hz = np.sin(2*np.pi*5*t)
+sig_250Hz = np.sin(2*np.pi*250*t)
+
+# a combined signal for 2 different frequencies 
+sig_5Hz_250Hz = sig_5Hz + sig_250Hz
+
+style.use('dark_background')
+f,plt_arr = plt.subplots(3, sharex=True)
+f.suptitle('Signal Generation')
+
+plt_arr[0].plot(sig_5Hz,color ='yellow')
+plt_arr[0].set_title('5Hz signal', color ='yellow')
+
+plt_arr[1].plot(sig_250Hz,color ='yellow')
+plt_arr[1].set_title('250Hz signal', color ='yellow')
+
+plt_arr[2].plot(sig_5Hz_250Hz,color ='cyan')
+plt_arr[2].set_title('Combined 5Hz and 250Hz signal', color ='cyan')
+
+plt.show()
+
+</code></pre>
+<img src="\images_01\output_7_0.png" alt="Output 2" width="500"> 
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+                            <a rel="next" href="chapter_02.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+                    <a rel="next" href="chapter_02.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3000/__livereload");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

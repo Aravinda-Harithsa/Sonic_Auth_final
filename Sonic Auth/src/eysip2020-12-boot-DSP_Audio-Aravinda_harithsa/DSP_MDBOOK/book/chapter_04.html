@@ -1,0 +1,711 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Convolution</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_01.html"><strong aria-hidden="true">1.</strong> Introduction to Signals</a></li><li class="chapter-item expanded "><a href="chapter_02.html"><strong aria-hidden="true">2.</strong> Quantization and Sampling Theorem</a></li><li class="chapter-item expanded "><a href="chapter_03.html"><strong aria-hidden="true">3.</strong> Linear Systems and Superposition</a></li><li class="chapter-item expanded "><a href="chapter_04.html" class="active"><strong aria-hidden="true">4.</strong> Convolution</a></li><li class="chapter-item expanded "><a href="chapter_05.html"><strong aria-hidden="true">5.</strong> Discrete Fourier Transform</a></li><li class="chapter-item expanded "><a href="chapter_06.html"><strong aria-hidden="true">6.</strong> Complex Numbers</a></li><li class="chapter-item expanded "><a href="chapter_07.html"><strong aria-hidden="true">7.</strong> Complex Fourier Transform</a></li><li class="chapter-item expanded "><a href="chapter_08.html"><strong aria-hidden="true">8.</strong> Fast Fourier Transform</a></li><li class="chapter-item expanded "><a href="chapter_09.html"><strong aria-hidden="true">9.</strong> Digital Filter Design</a></li><li class="chapter-item expanded "><a href="chapter_10.html"><strong aria-hidden="true">10.</strong> FIR Filters</a></li><li class="chapter-item expanded "><a href="chapter_11.html"><strong aria-hidden="true">11.</strong> IIR Filters</a></li><li class="chapter-item expanded "><a href="chapter_12.html"><strong aria-hidden="true">12.</strong> Windowed Filters</a></li><li class="chapter-item expanded "><a href="chapter_13.html"><strong aria-hidden="true">13.</strong> Custom Filters</a></li><li class="chapter-item expanded "><a href="chapter_14.html"><strong aria-hidden="true">14.</strong> Match Filters</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">15.</strong> FFT Convolution</a></li><li class="chapter-item expanded "><a href="chapter_16.html"><strong aria-hidden="true">16.</strong> LTI Systems</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">17.</strong> Interpolation</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">18.</strong> Waveform Generation</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#chapter-4" id="chapter-4">Chapter 4</a></h1>
+<h1><a class="header" href="#convolution" id="convolution">Convolution</a></h1>
+<hr>
+<hr>
+<p>Convolution is a mathematical operation used to express the relation between input and output of an linear time invariant  system. It relates input, output and impulse response of an LTI system .A convolution is an integral that expresses the amount of overlap of one function g as it is shifted over another function f. It therefore merges/convolutes one function with another.
+<img src="\img1\conv1.jpg" width="500"> </p>
+<p>Convolving or filtering  a signal  is a CPU-intensive operation. 
+As the convolution kernel and image size increases in size, convolution becomes more and more processor intensive.
+Convolution in Coordinate Space is equivalent to multiplication in Frequency space. Using Fourier mathematics  greatly decreases the computational CPU expense required to perform the filtering operation.we will be learning about fourier mathematics in upcoming lessons </p>
+<h5><a class="header" href="#examples--modeled-as-a-convolution" id="examples--modeled-as-a-convolution">Examples  modeled as a convolution:</a></h5>
+<ul>
+<li>Image blurring in a shaky camera</li>
+<li>Echoes in long distance telephone calls</li>
+<li>The finite bandwidth of analog sensors and electronics</li>
+</ul>
+<p>The convolution operaton will be depicted as shown below </p>
+<h3><a class="header" href="#ytxtht" id="ytxtht">y(t)=x(t)∗h(t)</a></h3>
+<p>Where ,</p>
+<ul>
+<li>
+<p>y (t) = output of system</p>
+</li>
+<li>
+<p>x (t) = input of system</p>
+</li>
+<li>
+<p>h (t) = impulse response of system</p>
+</li>
+</ul>
+<p>There are two types of convolutions:</p>
+<ol>
+<li>
+<p>Continuous convolution</p>
+</li>
+<li>
+<p>Discrete convolution</p>
+</li>
+</ol>
+<h5><a class="header" href="#what-is-impulse-response" id="what-is-impulse-response">what is impulse Response?</a></h5>
+<p>In signal processing, the impulse response, or impulse response function (IRF), of a dynamic system is its output when presented with a brief input signal, called an impulse. More generally, an impulse response is the reaction of any dynamic system in response to some external change. In both cases, the impulse response describes the reaction of the system as a function of time (or possibly as a function of some other independent variable that parameterizes the dynamic behavior of the system).</p>
+<pre><code class="language-python"># Sample  impulse response of a system 
+
+Impulse_response = [
+  -0.0018225230, -0.0015879294, +0.0000000000, +0.0036977508, +0.0080754303, +0.0085302217, -0.0000000000, -0.0173976984,
+  -0.0341458607, -0.0333591565, +0.0000000000, +0.0676308395, +0.1522061835, +0.2229246956, +0.2504960933, +0.2229246956,
+  +0.1522061835, +0.0676308395, +0.0000000000, -0.0333591565, -0.0341458607, -0.0173976984, -0.0000000000, +0.0085302217,
+  +0.0080754303, +0.0036977508, +0.0000000000, -0.0015879294, -0.0018225230
+]
+</code></pre>
+<h5><a class="header" href="#what-is-delta-function-" id="what-is-delta-function-">What is delta function ?</a></h5>
+<p>The simplest impulse response is nothing more that a delta function. An impulse on the input produces an identical impulse on
+the output. This means that all signals are passed through the system without change. Convolving any signal with a delta function results in exactly the same signal.</p>
+<p>If the delta function is made larger or smaller in amplitude, the
+resulting system is an amplifier or attenuator, respectively. 
+In equation form, </p>
+<ul>
+<li>Amplification results if k is greater than one </li>
+<li>Attenuation results if k is less than one</li>
+</ul>
+<h5><a class="header" href="#x-n---kδn--k-xn" id="x-n---kδn--k-xn">x [n] *  kδ[n] = k x[n]</a></h5>
+<h3><a class="header" href="#program-to-visualize-the-signals" id="program-to-visualize-the-signals">Program to visualize the signals</a></h3>
+<p>Let us polot the input signal and the impulse respone which has been defined previously</p>
+<pre><code class="language-python">from matplotlib import pyplot as plt
+import mysignals as sigs
+from matplotlib import style
+
+
+style.use('ggplot')
+
+f, plt_arr =plt.subplots(2,sharex=True)
+f.suptitle(&quot;Input signal and impulse response&quot;)
+plt_arr[0].plot(sigs.InputSignal_1kHz_15kHz)
+plt_arr[1].plot(Impulse_response)
+plt.show()
+</code></pre>
+<img src="\images_04\output_5_0.png" width="500">
+<h3><a class="header" href="#convolution-program-example--built-in-function" id="convolution-program-example--built-in-function">Convolution program example ( Built in function)</a></h3>
+<p>Here we will be implementing the Convolution of imput signal with predefined impulse response to get the desired convoluted ouput . Here the convoluted output is a low pass filter which has been designed by utilizing the proper impulse respone to filter only the low frequency signals </p>
+<pre><code class="language-python">import mysignals as sigs
+from matplotlib import pyplot as plt
+from matplotlib import style
+from scipy import signal
+
+
+# Here we are using the convolution functon using scipy library 
+
+output_signal = signal.convolve(sigs.InputSignal_1kHz_15kHz,Impulse_response, mode='same')
+
+style.use('ggplot')
+
+
+f,plt_arr = plt.subplots(3,sharex=True)
+f.suptitle(&quot;Convolution&quot;)
+plt_arr[0].plot(sigs.InputSignal_1kHz_15kHz, color ='black')
+plt_arr[0].set_title(&quot;Input Signal&quot;)
+plt_arr[1].plot(Impulse_response, color ='orange')
+plt_arr[1].set_title(&quot;Impulse Response&quot;)
+plt_arr[2].plot(output_signal, color ='blue')
+plt_arr[2].set_title(&quot;Output Signal&quot;)
+
+plt.show()
+</code></pre>
+<img src="\images_04\output_7_0.png" width="500">
+<p>As  designed, only the low frequency components are filtered out from the input signal after convoluting the input with impulse response</p>
+<h3><a class="header" href="#to-compute-convolution--without-built-in-modules-" id="to-compute-convolution--without-built-in-modules-">To compute convolution ( without built in modules )</a></h3>
+<pre><code class="language-python">import mysignals as sigs
+from matplotlib import pyplot as plt
+from matplotlib import style
+import csv
+
+
+
+csvfile = &quot;conv_output_signal.txt&quot;
+
+# This is the function which will calculate the convolution 
+def convolution(sig_src_arr,imp_response_arr,sig_dest_arr):
+    for x in range(len(sig_src_arr)+len(imp_response_arr)):
+        sig_dest_arr[x] =0
+
+    for x in range(len(sig_src_arr)):
+        for y in range(len(imp_response_arr)):
+            sig_dest_arr[x+y] = sig_dest_arr[x+y]+sig_src_arr[x]*imp_response_arr[y]
+
+    with open(csvfile,&quot;w&quot;) as output:
+        writer = csv.writer(output,lineterminator =',')
+        for x in sig_dest_arr:
+            writer.writerow([x])
+
+    style.use('ggplot')
+    
+    f,plt_arr =plt.subplots(3,sharex=True)
+    f.suptitle(&quot;Convolution&quot;)
+    
+    plt_arr[0].plot(sig_src_arr)
+    plt_arr[0].set_title(&quot;Input Signal&quot;)
+    
+    plt_arr[1].plot(imp_response_arr, color = 'brown')
+    plt_arr[1].set_title(&quot;Impulse Response&quot;, color ='brown')
+    
+    plt_arr[2].plot(sig_dest_arr, color ='green')
+    plt_arr[2].set_title(&quot;Output Signal&quot;, color='green')
+
+    plt.show()
+    
+output_signal = [None]*349
+convolution(sigs.InputSignal_1kHz_15kHz,Impulse_response,output_signal)
+
+
+</code></pre>
+<img src="\images_04\output_10_0.png" width="500">
+<h3><a class="header" href="#deconvolution" id="deconvolution">Deconvolution</a></h3>
+<p>Unwanted convolution is an inherent problem in transferring analog information.</p>
+<p>Deconvolution is the process of filtering a signal to compensate for an undesired convolution. The main goal of deconvolution is to recreate the signal as it existed before the convolution took place. This usually requires the characteristics of the convolution  to be known. This can be distinguished from blind deconvolution, where the characteristics of the parasitic convolution are not known. Blind deconvolution is a much more difficult problem that has no general solution, and the approach must be tailored to the particular application.</p>
+<p>Deconvolution is nearly impossible to understand in the time domain but quite straightforward in the frequency domain. Each sinusoid that composes the original signal can be changed in amplitude and phase as it passes through the undesired convolution. To extract the original signal, the deconvolution filter must undo these amplitude and phase changes.</p>
+<h5><a class="header" href="#python-example-for-deconvolution" id="python-example-for-deconvolution">Python example for Deconvolution</a></h5>
+<p>Let us take a 1D input signal and then convolute the same with the filter defined . then to obtain back the input result we have to deconvolute the filter and the output obtained to get back the input signal </p>
+<pre><code class="language-python">from scipy import signal
+import numpy as np
+
+
+sig = np.array([0,0,0,0,1,1,1,1])
+filter = np.array([1,1,0])
+print(&quot;\n The Input signal is\n &quot; )
+print(sig)
+
+conv_result = signal.convolve(sig,filter)
+deconv_result = signal.deconvolve(conv_result,filter)
+
+print(&quot;\n Convolution result \n&quot;)
+print(conv_result)
+print(&quot;\n Deconvolution result\n  &quot;)
+print(deconv_result[0])
+
+</code></pre>
+<pre><code> The Input signal is
+ 
+[0 0 0 0 1 1 1 1]
+
+ Convolution result 
+
+[0 0 0 0 1 2 2 2 1 0]
+
+ Deconvolution result
+  
+[0. 0. 0. 0. 1. 1. 1. 1.]
+</code></pre>
+<h4><a class="header" href="#practical-example-of-a-signal-deconvolution--square-pulse--filter-" id="practical-example-of-a-signal-deconvolution--square-pulse--filter-">Practical example of a signal Deconvolution ( Square pulse + filter )</a></h4>
+<ul>
+<li>
+<p>Input :  a square pulse input </p>
+</li>
+<li>
+<p>Filter:  gaussian filter</p>
+</li>
+</ul>
+<p>output Result will be obtained , then deconvolution will be done to obtain back the input pulse </p>
+<pre><code class="language-python">import numpy as np
+import scipy.signal
+import matplotlib.pyplot as plt
+
+# Input signal be a squared signal 
+signal = np.repeat([0., 2., 0.], 100)
+
+# let us convolute this by applying a gaussian filter 
+gauss = np.exp(-( (np.linspace(0,50)-25.)/float(12))**2 )
+
+
+# calculate the convolution 
+filtered = np.convolve(signal, gauss, mode='same') 
+deconv,  _ = scipy.signal.deconvolve( filtered, gauss )
+
+#the deconvolution has n = len(signal) - len(gauss) + 1 points
+n = len(signal)-len(gauss)+1
+
+# so we need to expand it by 
+s = (len(signal)-n)//2
+#plt.rcParams['axes.facecolor'] = 'white'
+
+deconv_res = np.zeros(len(signal))
+deconv_res[s:len(signal)-s-1] = deconv
+deconv = deconv_res
+# now deconv contains the deconvolution 
+# expanded to the original shape (filled with zeros) 
+ 
+fig , ax = plt.subplots(nrows=4, figsize=(6,7))
+fig.tight_layout(pad=3.0)
+
+ax[0].plot(signal)
+
+ax[1].plot(gauss)
+
+# we need to divide by the sum of the filter window to get the convolution normalized to 1
+ax[2].plot(filtered/np.sum(gauss))
+
+ax[3].plot(deconv)
+
+plt.show()   
+</code></pre>
+<img src="\images_04\output_15_0.png" width="500">
+<h3><a class="header" href="#signal-corelation" id="signal-corelation">Signal Corelation</a></h3>
+<p>Cross correlation is a standard method of estimating the degree to which two series are correlated .Here we will be corelating  the given signal and comparing corelation with convolution .Correlation is a mathematical operation that is very similar to convolution. Just as with convolution, correlation uses two signals to produce a third signal. This third signal is called the cross-correlation of the two input signals. </p>
+<p>A correlation could be under 3 possible  regions </p>
+<ul>
+<li>Positive Correlation : Both variables change in the same direction.</li>
+<li>Neutral Correlation  : No relationship in the change of the variables.</li>
+<li>Negative Correlation : Variables change in opposite directions.</li>
+</ul>
+<pre><code class="language-python">from scipy import signal
+from matplotlib import pyplot as plt
+import numpy as np
+import mysignals as sigs
+
+
+corr_output_signal = signal.correlate(sigs.InputSignal_1kHz_15kHz, Impulse_response,mode ='same')
+conv_output_signal = signal.convolve(sigs.InputSignal_1kHz_15kHz, Impulse_response,mode ='same')
+fig.tight_layout(pad=3.0)
+plt.rcParams['axes.facecolor'] = 'white'
+plt.plot(conv_output_signal)
+plt.plot(corr_output_signal)
+plt.show()
+
+</code></pre>
+<img src="\images_04\output_17_0.png" width="500">
+<h3><a class="header" href="#time-delay-calculation-between-two-signals" id="time-delay-calculation-between-two-signals">Time delay calculation between two signals</a></h3>
+<p>Cross-correlations are useful for determining the time delay between two signals </p>
+<p>Real world example :   For determining time delays for the propagation of acoustic signals across a microphone array. After calculating the cross-correlation between the two signals, the maximum of the cross-correlation function indicates the point in time where the signals are best aligned, which basically provides the time delay between the two signals is determined by the  arg max of the cross-correlation</p>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+from scipy import signal
+import numpy as np
+
+
+def lag_finder(y1, y2, sr):
+    n = len(y1)
+    corr = signal.correlate(y2, y1, mode='same') / np.sqrt(signal.correlate(y1, y1, mode='same')[int(n/2)] * signal.correlate(y2, y2, mode='same')[int(n/2)])
+
+    delay_arr = np.linspace(-0.5*n/sr, 0.5*n/sr, n)
+    delay = delay_arr[np.argmax(corr)]
+    print('y2 is ' + str(delay) + ' behind y1')
+
+    plt.figure()
+    plt.plot(delay_arr, corr)
+    plt.title('Lag: ' + str(np.round(delay, 3)) + ' s')
+    plt.xlabel('Lag')
+    plt.ylabel('Correlation coeff')
+    plt.show()
+
+
+sr = 2345
+y = np.linspace(0, 2*np.pi, sr)
+y = np.tile(np.sin(y), 5)
+y += np.random.normal(0, 5, y.shape)
+y1 = y[sr:4*sr]
+y2 = y[:3*sr]
+
+lag_finder(y1, y2, sr)
+</code></pre>
+<pre><code>y2 is 1.0001421666192778 behind y1
+</code></pre>
+<img src="\images_04\output_19_1.png" width="500">
+<h4><a class="header" href="#application-" id="application-">Application :</a></h4>
+<p>Key elements of a radar system. Like other echo location systems, radar transmits a short pulse of energy that is reflected by
+objects being examined. This makes the received waveform a shifted version of the transmitted waveform, plus random noise.
+Detection of a known waveform in a noisy signal is the fundamental problem in echo location. Corelation solves this problem </p>
+<h2><a class="header" href="#properties-of-convolution" id="properties-of-convolution">Properties of Convolution</a></h2>
+<p>A linear system's characteristics are completely specified by the system's impulse response, as
+governed by the mathematics of convolution. This is the basis of many signal processing
+techniques. 
+For example: Digital filters are created by designing an appropriate impulse response. </p>
+<h4><a class="header" href="#identity-property" id="identity-property">Identity property</a></h4>
+<p>If any function x(t)  is convolved with impulse function δ(t), it results the function itself. Again, convolution of any function with δ (t – t0), it results the shifted function. </p>
+<p>x(t)* δ (t) = x(t) </p>
+<p>x(t)* δ (t – t0) = x(t – t0) </p>
+<p>δ (t)* δ (t) = δ (t) </p>
+<h4><a class="header" href="#commutative" id="commutative">Commutative</a></h4>
+<p>The order in which two signals are convolved makes no difference and the results are identical.In any linear system, the input signal and the system's impulse response can be exchanged without changing the output signal.There can be no particular order . Even though physically it makes no difference Mathematically we can covolve them either way </p>
+<img src="\img1\commu.jpg" width="500"> 
+<h4><a class="header" href="#associative-property" id="associative-property">Associative property</a></h4>
+<p>When we Convolve two of the signals to produce an intermediate signal, then convolve the intermediate signal with the third signal to obtain the final result of the system . The associative property provides that the order of the convolutions doesn't matter here and will get us the same result </p>
+<img src="\img1\assoc.jpg" width="500"> 
+<p>The associative property is used  to describe how cascaded systems function .Two or more systems are said to be in a cascade if the output of one system is used as the input for the next system.  The order of the systems can be rearranged without changing the overall response of the cascade.Also any number of cascaded systems can be replaced with a single system. The impulse response of the replacement system is found by convolving the impulse responses of all of the original systems.</p>
+<h4><a class="header" href="#distributive-property" id="distributive-property">Distributive property</a></h4>
+<p>The distributive property describes the operation of parallel systems with added outputs ,This will helps in simplification of the circuits while analysing . Two or more systems can share the same input x[n] and have their outputs added to produce y[n]. The distributive property allows this combination of systems to be replaced with a single system and also  having an impulse response equal to the sum of the impulse responses of the original systems.
+<img src="\img1\distri.jpg" width="500"> </p>
+<h3><a class="header" href="#running-sum-and-first-dfference" id="running-sum-and-first-dfference">Running sum and First dfference</a></h3>
+<p>Convolution can change discrete signals in similar ways  that resemble integration and
+differentiation which we do when processing analog signals . Since the terms &quot;derivative&quot; and &quot;integral&quot; specifically refer
+to operations on continuous signals. The discrete operation that mimics the first derivative is called
+the first difference. Likewise, the discrete form of the integral is called the Running sum</p>
+<p>The running sum is the discrete version
+of the integral. Each sample in the
+output signal is equal to the sum of all
+samples in the input signal to the left.
+Note that the impulse response extends
+to infinity, a rather nasty feature.</p>
+<h3><a class="header" href="#program-to-illustrate-running-sum" id="program-to-illustrate-running-sum">Program to illustrate running sum</a></h3>
+<pre><code class="language-python">from matplotlib import pyplot as plt
+from matplotlib import style
+import mysignals as sigs
+import numpy as np
+
+
+output_signal = np.cumsum(sigs.InputSignal_1kHz_15kHz)
+
+
+style.use('dark_background')
+
+f,plt_arr = plt.subplots(2,sharex=True)
+f.suptitle(&quot;Running Sum&quot;)
+
+plt_arr[0].plot(sigs.InputSignal_1kHz_15kHz,color='yellow')
+plt_arr[0].set_title(&quot;Input Signal&quot;)
+
+plt_arr[1].plot(output_signal,color ='magenta')
+plt_arr[1].set_title(&quot;Output Signal&quot;)
+
+plt.show()
+
+</code></pre>
+<img src="\images_04\output_22_0.png" width="500">
+<h3><a class="header" href="#running-sum-program-without-built-in-function" id="running-sum-program-without-built-in-function">Running sum program without built in function</a></h3>
+<pre><code class="language-python">from matplotlib import pyplot as plt
+from matplotlib import style
+import mysignals as sigs
+
+
+# funtion which calculates running sum with foe loop 
+def calc_running_sum(sig_src_arr,sig_dest_arr):
+    
+    for x in range(len(sig_dest_arr)):
+        sig_dest_arr[x] = 0
+
+    for x in range(len(sig_src_arr)):
+        sig_dest_arr[x] =  sig_dest_arr[x-1]+sig_src_arr[x]
+        
+    style.use('ggplot')
+    
+    f,plt_arr = plt.subplots(2,sharex=True)
+    f.suptitle(&quot;Running Sum&quot;)
+
+    plt_arr[0].plot(sig_src_arr,color='red')
+    plt_arr[0].set_title(&quot;Input Signal&quot;)
+
+    plt_arr[1].plot(output_signal,color ='magenta')
+    plt_arr[1].set_title(&quot;Output Signal&quot;)
+
+    plt.show()
+
+output_signal =[None]*320
+calc_running_sum(sigs.InputSignal_1kHz_15kHz,output_signal)
+
+</code></pre>
+<img src="\images_04\output_24_0.png" width="500">
+<h2><a class="header" href="#first-difference" id="first-difference">First difference</a></h2>
+<p>This is the discrete version of the first
+derivative. Each sample in the output
+signal is equal to the difference between
+adjacent samples in the input signal. In
+other words, the output signal is the
+slope of the input signal.</p>
+<h4><a class="header" href="#program-to-illustrate-first-difference" id="program-to-illustrate-first-difference">Program to illustrate First difference</a></h4>
+<pre><code class="language-python">from matplotlib import pyplot as plt
+from matplotlib import style
+import mysignals as sigs
+import numpy as np
+
+#Here we are utilizng a built in function 
+output_signal = np.diff(sigs.InputSignal_1kHz_15kHz)
+
+style.use('ggplot')
+#style.use('dark_background')
+
+f,plt_arr = plt.subplots(2,sharex=True)
+f.suptitle(&quot;First Difference&quot;)
+
+plt_arr[0].plot(sigs.InputSignal_1kHz_15kHz,color='red')
+plt_arr[0].set_title(&quot;Input Signal&quot;)
+
+plt_arr[1].plot(output_signal,color ='magenta')
+plt_arr[1].set_title(&quot;Output Signal&quot;)
+
+plt.show()
+
+
+</code></pre>
+<img src="\images_04\output_26_0.png" width="500">
+<h3><a class="header" href="#program-to-calculate-first-difference-without-built-in-functions-" id="program-to-calculate-first-difference-without-built-in-functions-">Program to calculate first difference without built in functions :</a></h3>
+<pre><code class="language-python">from matplotlib import pyplot as plt
+from matplotlib import style
+import mysignals as sigs
+
+
+# Function to do the First difference operation 
+def calc_first_difference(sig_src_arr,sig_dest_arr):
+    
+    #creation of space for storing result 
+    for x in range(len(sig_dest_arr)):
+        sig_dest_arr[x] =0
+
+    #Taking the difference between the present and previous result (x-1)
+    for x in range(len(sig_src_arr)):
+        sig_dest_arr[x] = sig_src_arr[x] - sig_src_arr[x-1]
+        
+
+    style.use('ggplot')
+    
+
+    f,plt_arr = plt.subplots(2,sharex=True)
+    f.suptitle(&quot;First Difference&quot;)
+
+    plt_arr[0].plot(sig_src_arr,color='red')
+    plt_arr[0].set_title(&quot;Input Signal&quot;)
+
+    plt_arr[1].plot(sig_dest_arr,color ='magenta')
+    plt_arr[1].set_title(&quot;Output Signal&quot;)
+
+    plt.show()
+
+
+#Creation of empty array to feed output 
+output_signal =[None]*320
+
+# calling the function with our signal 
+calc_first_difference(sigs.InputSignal_1kHz_15kHz,output_signal)
+
+
+</code></pre>
+<img src="\images_04\output_28_0.png" width="500">
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="chapter_03.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="chapter_05.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="chapter_03.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="chapter_05.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3000/__livereload");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

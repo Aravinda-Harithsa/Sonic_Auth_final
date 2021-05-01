@@ -1,0 +1,475 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>IIR Filters</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_01.html"><strong aria-hidden="true">1.</strong> Introduction to Signals</a></li><li class="chapter-item expanded "><a href="chapter_02.html"><strong aria-hidden="true">2.</strong> Quantization and Sampling Theorem</a></li><li class="chapter-item expanded "><a href="chapter_03.html"><strong aria-hidden="true">3.</strong> Linear Systems and Superposition</a></li><li class="chapter-item expanded "><a href="chapter_04.html"><strong aria-hidden="true">4.</strong> Convolution</a></li><li class="chapter-item expanded "><a href="chapter_05.html"><strong aria-hidden="true">5.</strong> Discrete Fourier Transform</a></li><li class="chapter-item expanded "><a href="chapter_06.html"><strong aria-hidden="true">6.</strong> Complex Numbers</a></li><li class="chapter-item expanded "><a href="chapter_07.html"><strong aria-hidden="true">7.</strong> Complex Fourier Transform</a></li><li class="chapter-item expanded "><a href="chapter_08.html"><strong aria-hidden="true">8.</strong> Fast Fourier Transform</a></li><li class="chapter-item expanded "><a href="chapter_09.html"><strong aria-hidden="true">9.</strong> Digital Filter Design</a></li><li class="chapter-item expanded "><a href="chapter_10.html"><strong aria-hidden="true">10.</strong> FIR Filters</a></li><li class="chapter-item expanded "><a href="chapter_11.html" class="active"><strong aria-hidden="true">11.</strong> IIR Filters</a></li><li class="chapter-item expanded "><a href="chapter_12.html"><strong aria-hidden="true">12.</strong> Windowed Filters</a></li><li class="chapter-item expanded "><a href="chapter_13.html"><strong aria-hidden="true">13.</strong> Custom Filters</a></li><li class="chapter-item expanded "><a href="chapter_14.html"><strong aria-hidden="true">14.</strong> Match Filters</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">15.</strong> FFT Convolution</a></li><li class="chapter-item expanded "><a href="chapter_16.html"><strong aria-hidden="true">16.</strong> LTI Systems</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">17.</strong> Interpolation</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">18.</strong> Waveform Generation</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#chapter-11" id="chapter-11">Chapter 11</a></h1>
+<h1><a class="header" href="#iir-filters" id="iir-filters">IIR Filters</a></h1>
+<hr>
+<hr>
+<p><strong>Introduction</strong></p>
+<p>These are the most efficient type of filter to implement in DSP are usually provided as &quot;biquad&quot; filters.The amount of processing that is required to compute a biquad is relatively small. This is what enables the low-cost miniDSP products to implement a full active crossover  on all input and output channels. The  processor on each board can compute a certain number of biquads and this is the primary thing which indicates how many filters are available .Digital filters with an Infinite-duration Impulse Response (IIR) have characteristics that make them useful in many applications. </p>
+<p>The feedback which is  necessary in an implementation hence  Infinite Impulse Response (IIR) filter is also called a recursive filter and also called as  autoregressive moving-average filter (ARMA).The IIR filter has a rational transfer function. The transfer function being a ratio of polynomials means it has finite poles as well as zeros and the frequency-domain design problem becomes a rational-function approximation problem in contrast to the polynomial approximation for the FIR filte</p>
+<p><strong>IIR Filter Basics</strong></p>
+<p>IIR filters are one of two primary types of digital filters used in Digital Signal Processing (DSP) applications . “IIR” means “Infinite Impulse Response.”In IIR filter , we have recursion. We not only have the past inputs a weighted combination of those but we also have a weighted combination of the past outputs and this is where one gets the infinite nature of the impulse response because these recursions where present value of y depends on past. Sizable It will last in theory forever terms of the impulse response. The impulse response is “infinite” because there is feedback in the filter. if you put in an impulse ie. a single “1” sample followed by many “0” samples, an infinite number of non-zero values will come out.
+IIR filters can achieve a given filtering characteristic using less memory and calculations than a similar FIR filter.</p>
+<p><strong>Design  Process and conditions for (IIR) filter</strong></p>
+<p>The filter design process:- </p>
+<ul>
+<li>
+<p><strong>STEP 1</strong> : Specifications and requirements of the desirable IIR filter. A type of reference analog prototype filter to be used is specified according to the specifications and after that everything is ready for analog prototype filter design.</p>
+</li>
+<li>
+<p><strong>STEP 2</strong> : Scaling of the frequency range of analog prototype filter into desirable frequency range. This is how an analog prototype filter is converted into an analog filter.After the analog filter is designed</p>
+</li>
+<li>
+<p><strong>STEP 3</strong> : Conversion from analog to digital filter. The most popular and most commonly used converting method is bilinear transformation method. The resulting filter, obtained in this way, is always stable. However, instability of the resulting filter, when bilinear transformation is used, may be caused only by the finite word-length side-effect.</p>
+</li>
+</ul>
+<p><em>Some design Conditions for good filter design</em></p>
+<ul>
+<li>The transfer function (H(z)) should be a rational function of z, and the coefficients of z should be real.</li>
+<li>The poles (values, where the denominator turns 0 / output is infinite) should lie inside the unit circle of the z-plane.</li>
+<li>The number of zeros should be less than or equal to the number of poles.</li>
+<li>For the effective conversion from an analog filter to a digital one, the imaginary axis of the s-plane should map into the unit circle of the z-plane. This establishes a direct relationship between the analog frequency and digital frequency in two domains.</li>
+<li>The left half of the s-plane should map into the inside of the unit circle of the z-plane.</li>
+</ul>
+<p><strong>Advantages of an IIR filter</strong></p>
+<ol>
+<li>IIR filters are more versatile.</li>
+<li>They are computationally easier to implement.</li>
+<li>They are cheaper too.</li>
+<li>The infinite response of the IIR filter is a cool feature when you are looking for amplification of signals. Not so much when you wish to attenuate them, though.</li>
+</ol>
+<p><strong>Disadvantages of an IIR filter</strong></p>
+<ol>
+<li>
+<p>Practically realizable digital IIR filters do not have a linear phase response. The linear phase is a property where the phase response of a filter is a linear function of the frequency.</p>
+</li>
+<li>
+<p>IIR filters cannot implement integer math, which is an easy to use mathematical representation because it’s cheap, fast, and easy to implement</p>
+</li>
+<li>
+<p>They are more susceptible to problems of finite-length arithmetic, such as noise generated by calculations, and limit cycles.</p>
+</li>
+<li>
+<p>when the output isn’t computed perfectly and is fed back, the imperfection can compound.</p>
+</li>
+<li>
+<p>They are harder (slower) to implement using fixed-point arithmetic.</p>
+</li>
+<li>
+<p>They don’t offer the computational advantages of FIR filters for multirate (decimation and interpolation) applications.</p>
+</li>
+</ol>
+<p><strong>Attributes of the different IIR filter methods:</strong></p>
+<ul>
+<li>
+<p><strong>Butterworth</strong> – Flat response in both the pass and stop band, but has a wide transition zone. First described by British physicist Stephen Butterworth in 1930.</p>
+</li>
+<li>
+<p><strong>Inverse Chebyshev</strong> – Flat in the pass band, with a narrower transition width than the Butterworth filter, but has ripple in the stop band. If ripple in the stop band is not a problem, might be preferred for a given application over the Butterworth filter.</p>
+</li>
+<li>
+<p><strong>Chebyshev</strong> – Can have ripple in pass band, but has steeper rolloff than Inverse Chebyshev.</p>
+</li>
+<li>
+<p><strong>Cauer</strong> – Narrowest transition zone. Ripple in both stop and pass bands. Sometimes called an Elliptic filter.</p>
+</li>
+<li>
+<p>Bessel – Sloping amplitude in both the pass and stop band, with a very wide transition zone. The delay versus frequency in the filter is the flattest in this list. The Bessel filter was named for Freidrich Bessel (1784-1846), a German mathematician</p>
+</li>
+</ul>
+<h4><a class="header" href="#iir-filter-example-code-to-find-the-frequency-response-chebyshev" id="iir-filter-example-code-to-find-the-frequency-response-chebyshev">IIR filter example code to find the frequency response (Chebyshev)</a></h4>
+<p>We are going to compute the frequency response of a type 1 chebyshev filter.  Let us start by importing the signals module from scipy and also matplotlib for plotting . So I'm going to import from scipy.signal . functions used in this are the  freqs, iirfilter. So in order to get a filter coefficient, we need to create filter and we're going to use this function.The first argument is the number of tabs for the filter. We can't afford the iir filter function argument is the </p>
+<p>the pass band and stop band or the cutoff frequency by default should be selected. The IIR filter function gives a bandpass filter. So the critical frequency takes two frequencies as argument so we can pass one to 10 Hertz here as the critical frequency meaning frequencies between 1 to 10 has we want to pass through want to attenuate a everything else . Third parameter is the amount of ripples We want in the pass band. This fourth parameter is the amount of attenuation required. </p>
+<pre><code class="language-python">from scipy.signal import freqs, iirfilter
+from matplotlib import pyplot as plt
+import numpy as np
+
+
+#band pass filter design of cheby1 
+b,a = iirfilter(4,[1,10],1,60, analog =True,ftype='cheby1')
+
+w,h= freqs(b,a, worN=np.logspace(-1,2,1000))
+
+plt.semilogx(w,abs(h))
+plt.xlabel('Frequency')
+plt.ylabel('Amplitude Response')
+plt.grid()
+plt.show()
+
+</code></pre>
+<img src="\images_11\output_3_0.png" width="500"> 
+<pre><code class="language-python">from scipy import signal
+from matplotlib import pyplot as plt
+from matplotlib import style
+import numpy as np
+
+#low pass filter design parameters ( until 100hz)
+b,a = signal.cheby1(4,5,100,'low',analog=True)
+w,h = signal.freqs(b,a)
+
+#style.use('dark_background')
+
+plt.plot(w,20*np.log10(abs(h)))
+plt.xscale('log')
+plt.title(&quot;Chebyshev Type I frequency response (rp=5)&quot;)
+plt.xlabel(&quot;Frequency (rad/second)&quot;)
+plt.ylabel(&quot;Amplitude (dB)&quot;)
+plt.margins(0,0.1)
+plt.grid(which='both', axis='both')
+plt.axvline(100,color='green')
+plt.axhline(-5,color='green')
+plt.show()
+
+</code></pre>
+<img src="\images_11\output_4_0.png" width="500"> 
+<pre><code class="language-python">from scipy import signal
+from matplotlib import pyplot as plt
+import numpy as np
+
+
+b,a= signal.butter(4,100,'low',analog=True)
+w,h = signal.freqs(b,a)
+
+plt.plot(w,20*np.log10(abs(h)))
+plt.xscale('log')
+
+plt.title('Butterworth filter frequencry response')
+plt.xlabel('Frequency (rads/second)')
+plt.ylabel('Amplitude (db)')
+plt.margins(0,0.2)
+plt.grid()
+plt.axvline(100,color='green')
+plt.show()
+
+</code></pre>
+<img src="\images_11\output_5_0.png" width="500"> 
+<pre><code class="language-python">from scipy import signal
+from matplotlib import pyplot as plt
+import numpy as np
+
+b = signal.firwin(80,0.5, window=('kaiser',8))
+w,h =signal.freqz(b)
+plt.semilogy(w,np.abs(h),'g')
+plt.ylabel('Amplitude (db)',color='b')
+plt.xlabel('Freuency (rad/sample)')
+plt.show()
+
+</code></pre>
+<img src="\images_11\output_6_0.png" width="500"> 
+<hr />
+<h5><a class="header" href="#buterworth-filter" id="buterworth-filter">ButerWorth Filter</a></h5>
+<p>Butterworth filter which we are implementing using IIR technique. So here I will be importing the Sci-Fi library and numpy which is also Implement that so here I have defined two different functions called butter_bandpass which gives the filter co-efficients . butter_bandpass_filter where I will be passing the necessary arguments for my required design. The first function would provide me the filter coefficients required and it would return the numerator and the denominator of the design filter. Once I get those values then I would be using the butter band pass filter to do the same. So now let us define various parameters associated with the word filter. I will be taking the  frequency as 5000 Hertz and lower cutoff frequency of 500 an upper cut off frequency of thousand two hundred and fifty so Whatever frequency signals which are in between those two would be passed and everything else should be rejected. So to depict the frequency responses of various orders, I would be using 3 5 6 9. to show graphicaaly how does order matter for frequency response of a signal </p>
+<p>we'll take four different signals and mix it together to form of final signal then we'll be passing that particular signal into our filter such that we would be In a position to filter out the only the necessary signals once we are done with it would be plotting the final results as you can see in the output now. We have a noisy signal donated by the blue arrow Mark and a filtered signal of a 600 kilo Hertz. So when I pass this particular mix it signal through this band pass filter, it has filtered out the required elements of the signal which is the frequency lying between 2250 and 600.</p>
+<pre><code class="language-python">from scipy.signal import butter, lfilter, freqz
+import numpy as np
+from matplotlib import pyplot as plt
+from matplotlib import style
+
+
+
+# This function will return the numerator and denominator of the designed filter(b/a) 
+def butter_bandpass(lowcut, highcut, fs, order =5):
+    nyq = 0.5*fs
+    low = lowcut/nyq
+    high = highcut/nyq
+    b,a = butter(order,[low,high],btype='band')
+    return b,a
+
+def butter_bandpass_filter(data, lowcut,highcut, fs ,order=5):
+    b, a = butter_bandpass(lowcut,highcut,fs, order=order)
+    y = lfilter(b,a,data)
+    return y
+
+
+# now let us define the various parameters associated with butterworth filter
+fs = 5000
+
+#lower cut off frquencay 
+lowcut =500
+
+#Upper cut off frequency 
+highcut =1250
+
+plt.figure(1)
+
+for order in [3,5,6,9]:
+    b,a = butter_bandpass(lowcut,highcut,fs, order =order)
+    w,h = freqz(b,a,worN=2000)
+    plt.plot((fs*0.5/np.pi)*w, abs(h),label ='order=%d'%order )
+
+plt.xlabel('Frequency (Hz)')
+plt.ylabel('Gain')
+plt.grid()
+plt.legend(loc='best')
+
+    #Test Filter
+
+T =0.05
+nsamples = T*fs
+t = np.linspace(0,T,nsamples)
+a = 0.02
+f0 = 600
+
+x1 = 0.1*np.sin(2*np.pi*1.2*np.sqrt(t))
+x2 = 0.01*np.cos(2*np.pi*312*t+0.1)
+x3 = a*np.cos(2*np.pi*f0*t+.11)
+x4 = 0.03*np.cos(2*np.pi*2000*t)
+
+x = x1+x2+x3+x4
+plt.figure(2)
+plt.plot(t,x, label='Noisy signal')
+
+y = butter_bandpass_filter(x,lowcut,highcut,fs,order=6)
+plt.plot(t,y,label ='Filtered signal(%g Hz)'% f0)
+plt.xlabel('time (seconds)')
+plt.hlines([-a,a],0,T,linestyles='--')
+plt.grid()
+plt.axis('tight')
+plt.legend(loc='upper left')
+plt.show()
+    
+
+</code></pre>
+<img src="\images_11\output_8_0.png" width="500"> 
+ <img src="\images_11\output_8_1.png" width="500"> 
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="chapter_10.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="chapter_12.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="chapter_10.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="chapter_12.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3000/__livereload");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

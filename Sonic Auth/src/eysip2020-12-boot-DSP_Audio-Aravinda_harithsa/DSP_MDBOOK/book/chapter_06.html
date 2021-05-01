@@ -1,0 +1,340 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Complex Numbers</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_01.html"><strong aria-hidden="true">1.</strong> Introduction to Signals</a></li><li class="chapter-item expanded "><a href="chapter_02.html"><strong aria-hidden="true">2.</strong> Quantization and Sampling Theorem</a></li><li class="chapter-item expanded "><a href="chapter_03.html"><strong aria-hidden="true">3.</strong> Linear Systems and Superposition</a></li><li class="chapter-item expanded "><a href="chapter_04.html"><strong aria-hidden="true">4.</strong> Convolution</a></li><li class="chapter-item expanded "><a href="chapter_05.html"><strong aria-hidden="true">5.</strong> Discrete Fourier Transform</a></li><li class="chapter-item expanded "><a href="chapter_06.html" class="active"><strong aria-hidden="true">6.</strong> Complex Numbers</a></li><li class="chapter-item expanded "><a href="chapter_07.html"><strong aria-hidden="true">7.</strong> Complex Fourier Transform</a></li><li class="chapter-item expanded "><a href="chapter_08.html"><strong aria-hidden="true">8.</strong> Fast Fourier Transform</a></li><li class="chapter-item expanded "><a href="chapter_09.html"><strong aria-hidden="true">9.</strong> Digital Filter Design</a></li><li class="chapter-item expanded "><a href="chapter_10.html"><strong aria-hidden="true">10.</strong> FIR Filters</a></li><li class="chapter-item expanded "><a href="chapter_11.html"><strong aria-hidden="true">11.</strong> IIR Filters</a></li><li class="chapter-item expanded "><a href="chapter_12.html"><strong aria-hidden="true">12.</strong> Windowed Filters</a></li><li class="chapter-item expanded "><a href="chapter_13.html"><strong aria-hidden="true">13.</strong> Custom Filters</a></li><li class="chapter-item expanded "><a href="chapter_14.html"><strong aria-hidden="true">14.</strong> Match Filters</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">15.</strong> FFT Convolution</a></li><li class="chapter-item expanded "><a href="chapter_16.html"><strong aria-hidden="true">16.</strong> LTI Systems</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">17.</strong> Interpolation</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">18.</strong> Waveform Generation</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#chapter-6" id="chapter-6">Chapter 6</a></h1>
+<h1><a class="header" href="#complex-numbers" id="complex-numbers">Complex Numbers</a></h1>
+<hr>
+<hr>
+<h3><a class="header" href="#complex-number-system" id="complex-number-system">Complex Number System</a></h3>
+<p>Complex numbers are an extension of the ordinary numbers which we use in mathematics . They have the unique property of representing and manipulating two variables as a single quantity together. This is really helpfull for fourier analysis , where the frequency domain is composed of two signals, the real and the imaginary parts. Complex numbers will reduce the size of  equations used in DSP and enable techniques that are difficult or impossible with real numbers alone.
+The complex Fourier transform, the Laplace transform, and the z-transform. These complex transforms are the heart of theoretical DSP.</p>
+<p>History of Complex numbers : - 
+Indian mathematician Mahavira (850 A.D.) was first to mention in his work '<strong>Ganitasara sangraha</strong>'; 'As in nature of things a negative quantity is not a square, it has, therefore, no square root'. Hence, there is no real number x which satisfies the polynomial equation</p>
+<p>Let us consider this quadratic equation \[ax^2 + bx + c = 0 \]
+The rots of this equation will be given by </p>
+<p>\[x = \dfrac{-b \pm \sqrt{b^{2} - 4ac}}{2a}\]</p>
+<p>A <strong>Complex number</strong> is an object of the form</p>
+<p>a+bi</p>
+<p>where  a  and  b  are real numbers 
+\[i^{2} = -1\]</p>
+<p>The form  a+bi , where a and b are real numbers is called the standard form for a complex number. When we have a complex number of the form  z=a+bi , the number  a  is called the real part of the complex number  z  and the number  b  is called the imaginary part of  z . Since i is not a real number, two complex numbers  a+bi  and  c+di  are equal if and only if  a=c  and  b=d .</p>
+<h4><a class="header" href="#some-key-points-of-complex-numbers" id="some-key-points-of-complex-numbers">Some Key Points of Complex Numbers</a></h4>
+<ul>
+<li>
+<p>As explained, complex numbers are generally expressed as z = a+ib. Hence z is:
+Purely real, if b = 0</p>
+</li>
+<li>
+<p>Imaginary, if b ≠ 0</p>
+</li>
+<li>
+<p>Purely imaginary, if a = 0</p>
+</li>
+<li>
+<p>The set R of real numbers is a proper subset of the complex numbers.</p>
+</li>
+<li>
+<p>Zero is purely real as well as purely imaginary but not imaginary.</p>
+</li>
+<li>
+<p>i = √(-1), is called the imaginary unit. i2 = -1; i3 = i; i4=1, etc.</p>
+</li>
+<li>
+<p>If j = a + ib, then a-ib is called complex conjugate of j.</p>
+</li>
+</ul>
+<p>It can be shown that the complex numbers satisfy many useful and familiar properties, which are similar to properties of the real numbers. </p>
+<p>If  u ,  w , and  z , are complex numbers, then</p>
+<ul>
+<li>
+<p>w+z=z+w </p>
+</li>
+<li>
+<p>u+(w+z)=(u+w)+z </p>
+</li>
+<li>
+<p>The complex number  0=0+0i  is an additive identity, that is  z+0=z .</p>
+</li>
+<li>
+<p>If  z=a+bi , then the additive inverse of  z  is  −z=(−a)+(−b)i . That is,  z+(−z)=0 .</p>
+</li>
+<li>
+<p>wz=zw </p>
+</li>
+<li>
+<p>U(wz)=(Uw)z </p>
+</li>
+<li>
+<p>U(w+z)=Uw+Uz </p>
+</li>
+<li>
+<p>If  wz=0 , then  w=0  or  z=0 </p>
+</li>
+</ul>
+<h3><a class="header" href="#python-code-for-doing-complex-number-based-operation" id="python-code-for-doing-complex-number-based-operation">Python code for doing complex number based operation</a></h3>
+<pre><code class="language-python">
+import cmath 
+import math 
+  
+# Initializing real number values 
+x = 1.0
+y = 1.0
+  
+# converting x and y into complex number 
+z = complex(x,y); 
+  
+# converting complex number into polar using polar() 
+w = cmath.polar(z) 
+  
+# printing modulus and argument of polar complex number 
+print (&quot; polar Representation is  &quot;,end=&quot;&quot;) 
+print (w) 
+  
+
+</code></pre>
+<pre><code>The modulus and argument of polar complex number is : (1.4142135623730951, 0.7853981633974483)
+</code></pre>
+<h2><a class="header" href="#polar-representation-of-complex-numbers" id="polar-representation-of-complex-numbers">Polar Representation of Complex Numbers</a></h2>
+<p>The point ‘z’ represented in red is the complex number z = a+ib which corresponds to an intercept ‘a’ on the x-axis while it corresponds to an intercept ‘b’ on y-axis. Complex number does not actually mean complicated. In fact, it just implies that a complex number is a combination of a real and imaginary number. The line in blue represents the position vector of the point z.</p>
+<p>Complex plane is also termed as the Argand plane. A complex number is actually a point or a position vector in a two dimensional Cartesian coordinate system. The real part of the complex number is graphed as the horizontal component while the imaginary part is plotted against the vertical component. When we talk of a position vector of a complex number, it always takes into consideration, the magnitude and the direction with respect to the origin. All this is also emphasized in the polar form.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="chapter_05.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="chapter_07.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="chapter_05.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="chapter_07.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3000/__livereload");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
